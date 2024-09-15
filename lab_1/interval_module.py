@@ -64,7 +64,7 @@ class Interval:
         new_lower = max(self.lower, other.lower)
         new_upper = min(self.upper, other.upper)
         if new_lower > new_upper:
-            return Interval(0, 0)  # Returning an empty interval
+            return Interval(0, 0)
         return Interval(new_lower, new_upper)
 
     # Combining intervals
