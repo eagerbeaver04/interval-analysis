@@ -11,7 +11,7 @@ def print_matrix_for_latex(matrix, index=0):
     print("\\begin{equation}\n\\text A_%d = \\begin{pmatrix}" % index)
     for items in matrix:
         print("&".join([item.__repr__() for item in items]) + "\\\\\n")
-    print("\end{pmatrix}\n\end{equation}")
+    print("\\end{pmatrix}\n\\end{equation}")
 
 
 # Finding the maximum average value in a matrix
