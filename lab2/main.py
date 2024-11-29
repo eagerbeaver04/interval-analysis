@@ -14,7 +14,7 @@ def b_correction(b, k):
     return b + e
 
 
-def find_b_correction_min_K(A, b, eps=10e-3, max_iterations=1000):
+def find_b_correction_min_K(A, b, eps=10e-3, max_iterations=500):
     prev_k = 0
     cur_k = 0
     iteration = 0
@@ -80,11 +80,11 @@ def plot_tol(axis, A, b):
     max_tol = ip.linear.Tol.maximize(A, b)
 
     grid_min, grid_max = max_tol[0][0] - 2, max_tol[0][0] + 2
-    x_1_, x_2_ = np.mgrid[grid_min:grid_max:100j, grid_min:grid_max:100j]
-    list_x_1 = np.linspace(grid_min, grid_max, 100)
-    list_x_2 = np.linspace(grid_min, grid_max, 100)
+    x_1_, x_2_ = np.mgrid[grid_min:grid_max:70j, grid_min:grid_max:70j]
+    list_x_1 = np.linspace(grid_min, grid_max, 70)
+    list_x_2 = np.linspace(grid_min, grid_max, 70)
 
-    list_tol = np.zeros((100, 100))
+    list_tol = np.zeros((70, 70))
 
     for idx_x1, x1 in enumerate(list_x_1):
         for idx_x2, x2 in enumerate(list_x_2):
@@ -100,16 +100,15 @@ def plot_tol(axis, A, b):
             list_tol[idx_x1, idx_x2] = min(tol_values)
 
     axis.view_init(elev=30, azim=45)
-    axis.plot_surface(x_1_, x_2_, list_tol, cmap='plasma')
+    axis.plot_surface(x_1_, x_2_, list_tol, cmap='viridis')
     axis.scatter(*max_tol[0], max_tol[1], color='red', s=50)
-
 
 def plot_tol_functional(axis, A, b):
     max_tol = ip.linear.Tol.maximize(A, b)
     solution = max_tol[0]
 
-    x = np.linspace(float(solution[0]) - 2, float(solution[0]) + 2, 401)
-    y = np.linspace(float(solution[1]) - 2, float(solution[1]) + 2, 401)
+    x = np.linspace(float(solution[0]) - 2, float(solution[0]) + 2, 101)
+    y = np.linspace(float(solution[1]) - 2, float(solution[1]) + 2, 101)
     xx, yy = np.meshgrid(x, y)
     zz = np.array(
         [[1 if ip.linear.Tol.value(A, b, [x, y]) >= 0 else 0 for x, y in zip(x_row, y_row)] for x_row, y_row in
@@ -210,3 +209,6 @@ fig_a_corrected.tight_layout()
 fig_a_corrected_2d.tight_layout()
 fig_ab_corrected.tight_layout()
 fig_ab_corrected_2d.tight_layout()
+
+plt.show()
+
