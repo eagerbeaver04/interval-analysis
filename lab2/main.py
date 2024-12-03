@@ -158,15 +158,15 @@ systems = (
     (A_2, b_2),
     (A_3, b_3),
 )
-fig_raw = plt.figure(figsize=(15, 5))
+fig_raw = plt.figure(figsize=(15, 6))
 
-fig_b_corrected = plt.figure(figsize=(15, 5))
+fig_b_corrected = plt.figure(figsize=(15, 6))
 fig_b_corrected_2d = plt.figure(figsize=(15, 5))
 
-fig_a_corrected = plt.figure(figsize=(15, 5))
+fig_a_corrected = plt.figure(figsize=(15, 6))
 fig_a_corrected_2d = plt.figure(figsize=(15, 5))
 
-fig_ab_corrected = plt.figure(figsize=(15, 5))
+fig_ab_corrected = plt.figure(figsize=(15, 6))
 fig_ab_corrected_2d = plt.figure(figsize=(15, 5))
 
 for index, (A, b) in enumerate(systems):
