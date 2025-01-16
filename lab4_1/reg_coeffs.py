@@ -16,7 +16,6 @@ init(autoreset=True)
 def print_intervals(ys_int, ys_ext, Xs_lvls, actually_draw=True):
     ys_int_to_plot = [np.average(i) for i in ys_int]
     ys_ext_to_plot = [np.average(i) for i in ys_ext]
-    print(f'ys_int = ', ys_int)
 
     def gen_yi1(ys_int_to_plot):
         return np.abs(ys_int[:, 0] - ys_int_to_plot)
@@ -136,7 +135,7 @@ def calibrate(ch, cells, graphics=False):
 
 
 if __name__ == "__main__":
-    b_int, b_out = calibrate(7, 1000, True)
+    b_int, b_out = calibrate(1, 2, True)
 
 
 

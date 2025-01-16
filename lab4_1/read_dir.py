@@ -109,12 +109,24 @@ class rawData:
     def hist_bin_by_lvl_frame_channel(self, lvl: float, frame: int, channel: int, last=False):
         bin_file = self.get_bin_by_lvl(lvl, last)
         if bin_file:
-            plt.hist(np.array(bin_file.frames[frame])[:, channel],
+            data = np.array(bin_file.frames[frame])[:, channel]
+            plt.hist(data,
                      edgecolor="#074c3a",
-                     bins=1024,
-                     density=True)
-            plt.title(f"lvl: {lvl}, frame: {frame}, channel: {channel + 1}")
+                     bins=40,
+                     density=False)
+            plt.title(f"unfiltered, lvl: {lvl}, frame: {frame}, channel: {channel + 1}")
             plt.show()
+            data_score = np.abs((data - np.mean(data)) / np.std(data))
+            threshold = 2.5
+            filtered_indices = (data_score < threshold)
+            data = data[filtered_indices]
+            plt.hist(data,
+                     edgecolor="#074c3a",
+                     bins=40,
+                     density=False)
+            plt.title(f"filtered data, lvl: {lvl}, frame: {frame}, channel: {channel + 1}")
+            plt.show()
+
         else:
             print("input data wrong format")
 
@@ -136,7 +148,7 @@ class rawData:
                 plt.hist(np.array(bin_file.frames[frame])[:, channel],
                          edgecolor="#074c3a",
                          bins=1024,
-                         density=True)
+                         density=False)
                 plt.title(f"{lvl, frame, channel + 1}")
             plt.show()
         else:
@@ -149,12 +161,12 @@ class rawData:
                 for channel in range(0, 8):
                     plt.subplot(2, 4, channel + 1)
                     plt.plot(np.array(bin_file.frames[frame])[:, channel],
-                             color="#074c3a")
+                             color="royalblue")
                     plt.title(f"{lvl, frame, channel + 1}")
                 plt.show()
             else:
-                colors = ["#010605", "#031d16", "#053528", "#074c3a",
-                          "#09634c", "#0b7b5e", "#0d926f", "#0fa981"]
+                colors = ["cyan", "deepskyblue", "teal", "darkslateblue",
+                          "midnightblue", "indigo", "slategray", "turquoise"]
 
                 for channel in range(0, 8):
                     plt.plot(np.array(self.get_bin_by_lvl(lvl).frames[frame])[:, channel],
@@ -170,4 +182,5 @@ rawData_instance = rawData(PATH)
 rawData_instance.read_directory()
 rawData_instance.plot_bin_by_lvl_frame_all_bins(-0.205, 1)
 rawData_instance.plot_bin_by_lvl_frame_all_bins(-0.205, 1, False)
+rawData_instance.hist_bin_by_lvl_frame_channel(-0.205, 1, 1, False)
 

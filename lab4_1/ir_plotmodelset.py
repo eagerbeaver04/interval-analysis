@@ -11,7 +11,6 @@ def local_print_intervals(ys_int, ys_ext, Xs_lvls, actually_draw=True):
     ys_ext = ys_ext * (SCALE) - 0.5
     ys_int_to_plot = [np.average(i) for i in ys_int]
     ys_ext_to_plot = [np.average(i) for i in ys_ext]
-    print(f'ys_int = ', ys_int)
 
     def gen_yi1(ys_int_to_plot):
         return np.abs(ys_int[:, 0] - ys_int_to_plot)
